@@ -80,12 +80,22 @@ UNICODE_LIST = \
     + UNICODE_MAP['உயிர்க்குறிகள்'] \
     + UNICODE_MAP['குறிகள்']
 
-def get_letters_glyph(saram):
+
+# I have no idea why I wrote two functions
+# for this, the following line makes all the differece
+#      munp = mun if GLYPH_OR_CODING == 0 else mun[-1]
+# need to test with lot of string to figure why I did this
+# I should have documented this
+# I thought I might have wrote this for 'க்ஷா' as in பக்ஷாசி
+# that letter/glyph is evidently 4 codepoints =  'க', '்', 'ஷ', 'ா' long
+# I am pretty sure I did this for letter that is 3 codepoints long
+def _get_letters(saram, GLYPH_OR_CODING=1):
     puthusaram = []
     for i in saram:
         if i in UNICODE_MAP['உயிர்க்குறிகள்']:
             mun = puthusaram.pop(-1)
-            if mun in UNICODE_MAP['உயிர்க்குறிகள்']:
+            munp = mun if GLYPH_OR_CODING == 0 else mun[-1]
+            if munp in UNICODE_MAP['உயிர்க்குறிகள்']:
                 puthusaram.append( mun )
                 puthusaram.append( i )
             else:
@@ -94,22 +104,15 @@ def get_letters_glyph(saram):
             puthusaram.append( i )
             
     return puthusaram
+
+def get_letters_glyph(saram):
+    return _get_letters(saram, 0)
 
 def get_letters_coding(saram):
-    puthusaram = []
-    for i in saram:
-        if i in UNICODE_MAP['உயிர்க்குறிகள்']:
-            mun = puthusaram.pop(-1)
-            if mun[-1] in UNICODE_MAP['உயிர்க்குறிகள்']:
-                puthusaram.append( mun )
-                puthusaram.append( i )
-            else:
-                puthusaram.append( mun + i )
-        else:
-            puthusaram.append( i )
-            
-    return puthusaram
+    return _get_letters(saram, 1)
 
+
+# predicates
 def yezhutha_aa(ezhuthu):
     return ezhuthu in ARICHUVADI_MAP['எழுத்து']
 
@@ -118,8 +121,11 @@ def yenna_aa(ezhuthu):
 
 
 if __name__ == '__main__':
+    pprint(ARICHUVADI_MAP)
     saram = 'The Great உயர்தனிச்செம்மொழி தமிழ்!!!'
     print(saram)
+    print(list([i for i in saram]))
     print(get_letters_coding(saram))
+    print(get_letters_glyph(saram))
 
-    pprint(ARICHUVADI_MAP)
+
