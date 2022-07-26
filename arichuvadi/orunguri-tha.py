@@ -1,15 +1,20 @@
 
-ADAIYALAMITTA_ARI = 'adaiyalamitta-ari.txt'
-ARI = 'ari.txt'
-ARI_UNI = 'ari-uni.txt'
+from .valam import (
+    VER_ADAIVU,
+    THARAVU_ADAIVU,
+    ADAIYALAMITTA_ARI_PATH,
+    ARI_PATH,
+    ARI_UNI_PATH
+)
+
 def yes_or_no(prompt):
      return True if input('{}:[y/N]? '.format(prompt)).lower() == 'y' else False
 
 print(f"""
 This script is used to extract tamil alphabet and unicode level representation
-from {ADAIYALAMITTA_ARI} which is at this point the canonical source of truth.
-The files produced by this script are {ARI} and {ARI_UNI}. {ARI} is not sorted
-according to the native tamil script order. The {ARI} in repo is manually edited
+from {ADAIYALAMITTA_ARI_PATH} which is at this point the canonical source of truth.
+The files produced by this script are {ARI_PATH} and {ARI_UNI_PATH}. {ARI_PATH} is not sorted
+according to the native tamil script order. The {ARI_PATH} in repo is manually edited
 to has to be kept safe :)
 """)
 
@@ -23,9 +28,9 @@ else:
     exit(0)
 
     
-print(f'reading {ADAIYALAMITTA_ARI}... ', end='')
+print(f'reading {ADAIYALAMITTA_ARI_PATH}... ', end='')
 
-with open(ADAIYALAMITTA_ARI) as f:
+with open(ADAIYALAMITTA_ARI_PATH) as f:
     letters = []
     for vari in f:
         vari = vari.strip()
@@ -43,14 +48,14 @@ pprint(count)
 
 letters = sorted(list(set(letters)))
 
-OFILEPATH=ARI
+OFILEPATH=ARI_PATH
 print(f'writing to {OFILEPATH}...')
 with open(OFILEPATH, 'w') as  of:
     of.write('\n'.join(letters))
     of.write('\n')
     
-print(f'reading {ARI}... ', end='')
-with open(ARI) as f:
+print(f'reading {ARI_PATH}... ', end='')
+with open(ARI_PATH) as f:
     letters = [i.strip() for i in f.readlines()]
 
 print('DONE')
@@ -59,7 +64,7 @@ letters = [i for i in letters if i.strip()]
 letters = ''.join(letters)
 letters = sorted(list(set(letters)))
 
-OFILEPATH=ARI_UNI
+OFILEPATH=ARI_UNI_PATH
 print(f'writing to {OFILEPATH}...')
 with open(OFILEPATH, 'w') as  of:
     of.write('\n'.join(letters))

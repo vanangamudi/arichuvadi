@@ -1,6 +1,18 @@
 from pprint import pprint, pformat
 from collections import OrderedDict, defaultdict, namedtuple
 
+
+import os
+
+from .valam import (
+    VER_ADAIVU,
+    THARAVU_ADAIVU,
+    ADAIYALAMITTA_ARI_PATH,
+    ARI_PATH,
+    ARI_UNI_PATH
+)
+
+
 AAYTHAM_NEELAM = 1   # ஃ
 UYIR_NEELAM = 12 # அஆஇஈஉஊஎஏஐஒஓஔ
 MEI_NEELAM = 18 # க்ங்ச்ஞ்ட்ண் த்ந்ப்ம்ய்ர் ல்வ்ழ்ள்ற்ன்
@@ -18,7 +30,7 @@ ARICHUVADI_MAP = defaultdict(list)
 ARICHUVADI = []
 
 
-with open('adaiyalamitta-ari.txt') as f:
+with open(ADAIYALAMITTA_ARI_PATH) as f:
     for vari in f:
         vari = vari.strip()
         if not vari or vari.startswith('#'):
@@ -39,7 +51,7 @@ with open('adaiyalamitta-ari.txt') as f:
 ARICHUVADI_MAP = dict(ARICHUVADI_MAP)
 ##############################################
 
-with open('ari.txt') as f:
+with open(ARI_PATH) as f:
     for vari in f:
         vari = vari.strip()
         if vari:
@@ -56,7 +68,7 @@ assert len(ARICHUVADI) == ARICHUVADI_NEELAM, \
 UNICODE_MAP = dict()
 
 ippo = None
-with open('ari-uni.txt') as f:
+with open(ARI_UNI_PATH) as f:
     for vari in f:
         vari = vari.strip()
         if vari == '':
@@ -121,6 +133,8 @@ def yenna_aa(ezhuthu):
 
 
 if __name__ == '__main__':
+    print(__package__)
+    print(__name__)
     pprint(ARICHUVADI_MAP)
     saram = 'The Great உயர்தனிச்செம்மொழி தமிழ்!!!'
     print(saram)

@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "arichuvadi"
+version = "0.0.2b"
+authors = [
+  { name="vanangamudi", email="selva.developer@gmail.com" },
+]
+description = "a basic set of tools to work with Tamil text"
+readme = "YENNAI_PADI.txt"
+license = { file="LICENSE" }
+requires-python = ">=3.5"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/vanangamudi/arichuvadi"
+"Bug Tracker" = "https://github.com/vanangamudi/arichuvadi/issues"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]  # ["."] by default
+include = ["*"]  # ["*"] by default
+exclude = []  # empty by default
+namespaces = true  # true by default
