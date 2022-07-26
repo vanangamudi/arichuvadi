@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "arichuvadi"
-version = "0.0.2b"
+version = "0.0.3"
 authors = [
   { name="vanangamudi", email="selva.developer@gmail.com" },
 ]
@@ -26,7 +26,7 @@ classifiers = [
 include-package-data = true
 
 [tool.setuptools.packages.find]
-where = ["."]  # ["."] by default
+where = ["mlm"]  # ["."] by default
 include = ["*"]  # ["*"] by default
 exclude = []  # empty by default
 namespaces = true  # true by default
