@@ -132,14 +132,41 @@ def yenna_aa(ezhuthu):
     return ezhuthu in ARICHUVADI_MAP['எண்கள்']
 
 
+class TamilStr:
+    def __init__(self, charam):
+        self.charam = get_letters_coding(charam)
+
+    def __getitem__(self, i):
+        return self.charam[i]
+
+    def __setitem__(self, i, m):
+        if isinstance(m, TamilStr):
+            self.charam = self.charam[:i] + m.charam + self.charam[i:]
+        else:
+            self.charam = self.charam[:i] + get_letters_coding(m) + self.charam[i+1:]
+            
+    def __str__(self):
+        return ''.join(self.charam)
+
+    def __repr__(self):
+        return repr(self.charam)
+    
+    def __iter__(self):
+        for i in self.charam:
+            yield i
+
+
 if __name__ == '__main__':
     print(__package__)
     print(__name__)
-    pprint(ARICHUVADI_MAP)
+    #pprint(ARICHUVADI_MAP)
     saram = 'The Great உயர்தனிச்செம்மொழி தமிழ்!!!'
     print(saram)
     print(list([i for i in saram]))
     print(get_letters_coding(saram))
     print(get_letters_glyph(saram))
 
+
+    print(TamilStr(saram))
+    print(repr(TamilStr(saram)))
 
