@@ -1,0 +1,8 @@
+* TODO add three letters left out to adaiyallamitta-ari.txt
+[[https://en.wikipedia.org/wiki/Tamil_script][Tamil Script - Wikipedia]]
+
+#+begin_quote
+ீ
+ஂ
+௸
+#+end_quote
