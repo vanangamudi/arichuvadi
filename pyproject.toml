@@ -23,6 +23,7 @@ classifiers = [
 "Bug Tracker" = "https://github.com/vanangamudi/arichuvadi/issues"
 
 [tool.setuptools]
+#package-dir = {"" = "mlm"}
 include-package-data = true
 
 [tool.setuptools.packages.find]

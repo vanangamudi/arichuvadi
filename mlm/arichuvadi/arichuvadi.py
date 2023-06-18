@@ -1,10 +1,11 @@
+
 from pprint import pprint, pformat
 from collections import OrderedDict, defaultdict, namedtuple
 
 
 import os
 
-from valam import (
+from .valam import (
     VER_ADAIVU,
     THARAVU_ADAIVU,
     ADAIYALAMITTA_ARI_PATH,
@@ -134,10 +135,16 @@ def yenna_aa(ezhuthu):
 
 class TamilStr:
     def __init__(self, charam):
-        self.charam = get_letters_coding(charam)
+        if isinstance(charam, list):
+            self.charam = charam
+        else:
+            self.charam = get_letters_coding(charam)
 
+    def __len__(self):
+        return len(self.charam)
+    
     def __getitem__(self, i):
-        return self.charam[i]
+        return TamilStr(self.charam[i])
 
     def __setitem__(self, i, m):
         if isinstance(m, TamilStr):
@@ -155,18 +162,21 @@ class TamilStr:
         for i in self.charam:
             yield i
 
+    def __eq__(self, other):
+        return self.charam == other.charam
+
 
 if __name__ == '__main__':
     print(__package__)
     print(__name__)
     #pprint(ARICHUVADI_MAP)
     saram = 'The Great உயர்தனிச்செம்மொழி தமிழ்!!!'
-    print(saram)
-    print(list([i for i in saram]))
-    print(get_letters_coding(saram))
-    print(get_letters_glyph(saram))
+    print('Original string:\n\t', saram)
+    print('Original string as a list:\n\t', list([i for i in saram]))
+    print('get_letters_coding:\n\t', get_letters_coding(saram))
+    print('get_letters_glyph:\n\t',get_letters_glyph(saram))
 
 
-    print(TamilStr(saram))
-    print(repr(TamilStr(saram)))
+    print('TamilStr:\n\t', TamilStr(saram))
+    print('TamilStr-repr:\n\t', repr(TamilStr(saram)))
 

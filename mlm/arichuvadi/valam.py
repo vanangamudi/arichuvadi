@@ -1,6 +1,6 @@
 import os
 
-VER_ADAIVU = os.path.realpath(os.path.join(os.path.dirname(__file__), '.'))
+VER_ADAIVU = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
 
 THARAVU_ADAIVU = f'{VER_ADAIVU}/tharavu'
 

@@ -1,1 +1,2 @@
 include mlm/tharavu/*.txt
+include LICENSE.txt README.txt  pyproject.toml
