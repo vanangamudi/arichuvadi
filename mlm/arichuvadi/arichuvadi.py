@@ -1,11 +1,10 @@
-
 from pprint import pprint, pformat
 from collections import OrderedDict, defaultdict, namedtuple
 
 
 import os
 
-from .valam import (
+from valam import (
     VER_ADAIVU,
     THARAVU_ADAIVU,
     ADAIYALAMITTA_ARI_PATH,
