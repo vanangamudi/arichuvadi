@@ -1,17 +1,13 @@
 from pprint import pprint, pformat
 from collections import OrderedDict, defaultdict, namedtuple
 
-
 import os
 
-from valam import (
-    VER_ADAIVU,
-    THARAVU_ADAIVU,
+from arichuvadi.valam import (
     ADAIYALAMITTA_ARI_PATH,
     ARI_PATH,
     ARI_UNI_PATH
 )
-
 
 AAYTHAM_NEELAM = 1   # ஃ
 UYIR_NEELAM = 12 # அஆஇஈஉஊஎஏஐஒஓஔ
@@ -28,7 +24,6 @@ ARICHUVADI_NEELAM = \
 ARICHUVADI_MAP = defaultdict(list)
 
 ARICHUVADI = []
-
 
 with open(ADAIYALAMITTA_ARI_PATH) as f:
     for vari in f:

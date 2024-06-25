@@ -1,6 +1,6 @@
 from pprint import pprint, pformat
 
-from valam import UYIRMEI_MAP_PATH
+from arichuvadi.valam import UYIRMEI_MAP_PATH
 from arichuvadi import get_letters_coding
 
 UYIRMEI = 'uyirmei'
