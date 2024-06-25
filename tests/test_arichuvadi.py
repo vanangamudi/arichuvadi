@@ -14,16 +14,16 @@ class TestArichuvadi(unittest.TestCase):
     def test_get_letters_coding(self):
         #print(arichuvadi.get_letters_coding(self.saram))
         self.assertEqual(arichuvadi.get_letters_coding(self.saram),
-                         ['T', 'h', 'e', ' ', 'G', 'r', 'e', 'a', 't', ' ', \
-                          'உ', 'ய', 'ர்', 'த', 'னி', 'ச்', 'செ', 'ம்', 'மொ', 'ழி',\
-                          ' ', 'த', 'மி', 'ழ்', '!', '!', '!'])
+                         ['T','h','e',' ','G','r','e','a','t',' ',\
+                          'உ','ய','ர்','த','னி','ச்','செ','ம்','மொ','ழி',\
+                          ' ','த','மி','ழ்','!','!','!'])
 
     def test_get_letters_glyph(self):
         #print(arichuvadi.get_letters_glyph(self.saram))
         self.assertEqual(arichuvadi.get_letters_glyph(self.saram),
-                         ['T', 'h', 'e', ' ', 'G', 'r', 'e', 'a', 't', ' ', \
-                          'உ', 'ய', 'ர்', 'த', 'னி', 'ச்', 'செ', 'ம்', 'மொ', 'ழி',\
-                          ' ', 'த', 'மி', 'ழ்', '!', '!', '!'])
+                         ['T','h','e',' ','G','r','e','a','t',' ',\
+                          'உ','ய','ர்','த','னி','ச்','செ','ம்','மொ','ழி',\
+                          ' ','த','மி','ழ்','!','!','!'])
 
     def test_TamilStr_str(self):
         self.assertEqual(self.saram,

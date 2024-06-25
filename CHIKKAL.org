@@ -1,0 +1,64 @@
+* [[https://stackoverflow.com/questions/78668385/modulenotfounderror-no-module-named-arichuvadi-valam-arichuvadi-is-not-a-p][ModuleNotFoundError: No module named 'arichuvadi.valam'; 'arichuvadi' is not a package]]
+Installed the local package in editable form with the following command
+#+begin_src shell
+  pip install -e .
+#+end_src
+
+I get this error when running the code like this
+#+begin_src shell
+$ python mlm/arichuvadi/uyirmei.py
+Traceback (most recent call last):
+  File "/home/vanangamudi/code/arichuvadi/mlm/arichuvadi/uyirmei.py", line 1, in <module>
+    from arichuvadi.valam import UYIRMEI_MAP_PATH
+  File "/home/vanangamudi/code/arichuvadi/mlm/arichuvadi/arichuvadi.py", line 7, in <module>
+    from arichuvadi.valam import (
+ModuleNotFoundError: No module named 'arichuvadi.valam'; 'arichuvadi' is not a package
+#+end_src
+
+Here is the file layout
+#+begin_src shell :results code
+  tree
+#+end_src
+
+#+RESULTS:
+#+begin_src shell
+.
+├── LICENSE
+├── MANIFEST.in
+├── mlm
+│   ├── arichuvadi
+│   │   ├── arichuvadi.py
+│   │   ├── __init__.py
+│   │   ├── uyirmei.py
+│   │   └── valam.py
+│   ├── arichuvadi.egg-info
+│   │   ├── dependency_links.txt
+│   │   ├── PKG-INFO
+│   │   ├── SOURCES.txt
+│   │   └── top_level.txt
+│   ├── orunguri-tha.py
+│   └── tharavu
+│       ├── adaiyalamitta-ari.txt
+│       ├── ari.txt
+│       ├── ari-uni.txt
+│       └── uyir-mei.csv
+├── pyproject.toml
+├── README.txt -> YENNAI_PADI.txt
+├── setup.py
+├── YENNAI_PADI.txt
+└── YENNA_SEIYA.org
+
+4 directories, 20 files
+#+end_src
+
+It works when importing in repl
+#+begin_src shell
+  $ python
+  Python 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] on linux
+  Type "help", "copyright", "credits" or "license" for more information.
+  >>> import arichuvadi
+  >>> import arichuvadi.valam
+  >>>
+#+end_src
+
+Please help!
