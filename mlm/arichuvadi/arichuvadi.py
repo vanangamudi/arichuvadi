@@ -44,7 +44,7 @@ with open(ADAIYALAMITTA_ARI_PATH) as f:
         for i in vari:
             if i == '_':
                 i = ''
-                
+
             if i not in ARICHUVADI_MAP[adaiyalam[0]]:
                 ARICHUVADI_MAP[adaiyalam[0]].append(i)
 
@@ -73,7 +73,7 @@ with open(ARI_UNI_PATH) as f:
         vari = vari.strip()
         if vari == '':
             continue
-        
+
         if vari.startswith('*'):
             vari = vari.strip('* ')
             ippo = vari
@@ -82,7 +82,7 @@ with open(ARI_UNI_PATH) as f:
         else:
             UNICODE_MAP[ippo].append(vari)
 
-            
+
 UNICODE_LIST = []
 UNICODE_LIST = \
     UNICODE_MAP['எண்கள்'] \
@@ -114,7 +114,7 @@ def _get_letters(saram, GLYPH_OR_CODING=1):
                 puthusaram.append( mun + i )
         else:
             puthusaram.append( i )
-            
+
     return puthusaram
 
 def get_letters_glyph(saram):
@@ -141,7 +141,7 @@ class TamilStr:
 
     def __len__(self):
         return len(self.charam)
-    
+
     def __getitem__(self, i):
         return TamilStr(self.charam[i])
 
@@ -150,13 +150,13 @@ class TamilStr:
             self.charam = self.charam[:i] + m.charam + self.charam[i:]
         else:
             self.charam = self.charam[:i] + get_letters_coding(m) + self.charam[i+1:]
-            
+
     def __str__(self):
         return ''.join(self.charam)
 
     def __repr__(self):
         return repr(self.charam)
-    
+
     def __iter__(self):
         for i in self.charam:
             yield i
@@ -178,4 +178,3 @@ if __name__ == '__main__':
 
     print('TamilStr:\n\t', TamilStr(saram))
     print('TamilStr-repr:\n\t', repr(TamilStr(saram)))
-
