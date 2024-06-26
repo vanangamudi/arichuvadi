@@ -1,0 +1,65 @@
+#+TITLE:Arichuvadi
+
+* Arichuvadi for dealing with Tamil text
+Unicode for all its astonishing contribution towards enabling text representation for most of the world's languages, encodes Tamil text in a form that is alien to native speakers. The way we think about Tamil alphabet, the arichuvadi is completely different from how it is represented in Unicode.
+
+Unicode representation for =தமிழ் = த, ம, ி, ழ, ்=
+
+#+begin_src python :results output code
+  print(list(i for i in 'தமிழ்'))
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+['த', 'ம', 'ி', 'ழ', '்']
+#+end_src
+
+Instead of =த மி ழ்= and not even mei-uyir form =த் அ ம் இ ழ்=
+
+There exists alternate but more natural (as per the mental model of native Tamil speakers) like =TACE-16=. But since unicode is the universal standard and using alternate encoding might make survivability feature(you can open any text file in any unicode supported text editor in the world, your text will remain the same) that comes with using plaintext will vanish.
+
+
+
+#+begin_src python :results output code
+  import arichuvadi as ari
+  print(ari.get_letters_coding('தமிழ்'))
+  print(ari.get_letters_glyph('தமிழ்'))
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+['த', 'மி', 'ழ்']
+['த', 'மி', 'ழ்']
+#+end_src
+
+These two functions are the most useful. Their result may seem same but there are minute differences when it comes to an alpbhabet which is coded in three or four unicode code points instead of the usual two. I wrote this library a couple of years ago and I forgot the example that illustrates the difference between the two and will update the documentation as I recall the example.
+
+For most use cases, =get_letters_coding= should be fine.
+
+** TamilStr class
+This provides a easy to use wrapper for tamil text albeit an highly inefficient one. This should never be used to handle large amount of text by any means
+
+#+begin_src python :results output code
+  import arichuvadi as ari
+  tamil = ari.TamilStr('தமிழ்')
+  moli = ari.TamilStr('மொழி')
+  #tamilmoli = tamil + moli
+
+  print(tamil)
+  print(moli)
+  #print(tamilmoli)
+  print(tamil[:2], '!=', str(tamil)[:2])
+  print([i for i in tamil])
+
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+தமிழ்
+மொழி
+தமி != தம
+['த', 'மி', 'ழ்']
+#+end_src
+
+** Related Work
+=open-tamil= is a fantastic package that is feature packed. Arichuvadi on the other hand deals with very basic operations like converting a unicode Tamil string into list of /proper/ Tamil alphabet.
