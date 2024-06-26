@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "arichuvadi"
-version = "0.0.3"
+version = "0.0.6"
 authors = [
   { name="vanangamudi", email="selva.developer@gmail.com" },
 ]
@@ -30,3 +30,6 @@ where = ["mlm"]  # ["."] by default
 include = ["*"]  # ["*"] by default
 exclude = []  # empty by default
 namespaces = true  # true by default
+
+[tool.setuptools.package-data]
+tharavu = ["*.txt", "*.csv"]
