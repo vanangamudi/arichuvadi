@@ -16,11 +16,11 @@ Unicode representation for =தமிழ் = த, ம, ி, ழ, ்=
 
 Instead of =த மி ழ்= and not even mei-uyir form =த் அ ம் இ ழ்=
 
-There exists alternate but more natural (as per the mental model of native Tamil speakers) like =TACE-16=. But since unicode is the universal standard and using alternate encoding might make survivability feature(you can open any text file in any unicode supported text editor in the world, your text will remain the same) that comes with using plaintext will vanish.
+There exists alternate but more natural (as per the mental model of native Tamil speakers) like =TACE-16=. But since unicode is the universal standard and using alternate encoding might make survivability feature(you can open any text file in any unicode supported text editor in the world, your text will remain the same) that comes with using plain-text will vanish.
 
 
 
-#+begin_src python :results output code
+#+begin_src python :results output code :exports both
   import arichuvadi as ari
   print(ari.get_letters_coding('தமிழ்'))
   print(ari.get_letters_glyph('தமிழ்'))
@@ -39,7 +39,7 @@ For most use cases, =get_letters_coding= should be fine.
 ** TamilStr class
 This provides a easy to use wrapper for tamil text albeit an highly inefficient one. This should never be used to handle large amount of text by any means
 
-#+begin_src python :results output code
+#+begin_src python :results output code :exports both
   import arichuvadi as ari
   tamil = ari.TamilStr('தமிழ்')
   moli = ari.TamilStr('மொழி')
@@ -50,6 +50,7 @@ This provides a easy to use wrapper for tamil text albeit an highly inefficient 
   #print(tamilmoli)
   print(tamil[:2], '!=', str(tamil)[:2])
   print([i for i in tamil])
+  print([i for i in 'தமிழ்'])
 
 #+end_src
 
