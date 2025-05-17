@@ -4,6 +4,8 @@ from collections import OrderedDict, defaultdict, namedtuple
 import os
 import re
 
+from . import uyirmei
+from .uyirmei import UYIRMEI
 from .valam import (
     ADAIYALAMITTA_ARI_PATH,
     ARI_PATH,
@@ -178,16 +180,16 @@ class TamilStr:
         return self.charam == other.charam
 
 
-def split_uyirmei(string, join_p=True):
+def split_uyirmei(string, join_p=False):
     """
     தமிழ் -> த் அ ம் இ ழ்
     """
 
     letters = []
-    for i in get_letters_coding(string.strip()):
-        if i in MAP[ UYIRMEI ]:
+    for i in get_letters_coding(string):
+        if i in uyirmei.MAP[ UYIRMEI ]:
             letters.extend(
-                get_letters_coding( MAP[ UYIRMEI ][i] ))
+                get_letters_coding( uyirmei.MAP[ UYIRMEI ][i] ))
         else:
             letters.append(i)
 
@@ -195,18 +197,18 @@ def split_uyirmei(string, join_p=True):
         return ''.join(letters)
     return letters
 
-def split_uyirmei2(string, join_p=True):
+def split_uyirmei2(string, join_p=False):
     """
     தமிழ் -> த ம் இ ழ்
     """
     letters = []
-    inletters = get_letters_coding(string.strip())
+    inletters = get_letters_coding(string)
 
     letters.append(inletters[0])
     for i in inletters[1:-1]:
-        if i in MAP[ UYIRMEI ]:
+        if i in uyirmei.MAP[ UYIRMEI ]:
             letters.extend(
-                get_letters_coding( MAP[ UYIRMEI ][i] ))
+                get_letters_coding( uyirmei.MAP[ UYIRMEI ][i] ))
         else:
             letters.append(i)
 
@@ -225,23 +227,72 @@ def merge_uyirmei(instring):
     i = 0
     while i < len(string) - 1:
         couplet = string[i]+string[i+1]
-        #print(couplet, string)
-        if couplet in IMAP[ UYIRMEI ]:
+        # print(couplet, string)
+        if couplet in uyirmei.IMAP[ UYIRMEI ]:
             # print(''.join(string[:i]), '#',
-            #       ''.join([IMAP[ UYIRMEI ][couplet]]), '#',
+            #       ''.join([uyirmei.IMAP[ UYIRMEI ][couplet]]), '#',
             #       ''.join(string[i+1:]))
-            string = string[:i] + [(IMAP[ UYIRMEI ][couplet])] + string[i+2:]
-
+            string = \
+                string[:i] \
+                + [(uyirmei.IMAP[ UYIRMEI ][couplet])] \
+                + string[i+2:]
 
         i += 1
 
     return ''.join(string)
 
 
+class TamilStr:
+    def __init__(self, charam):
+        if isinstance(charam, list):
+            self.charam = charam
+        else:
+            self.charam = get_letters_coding(charam)
+
+    def __len__(self):
+        return len(self.charam)
+
+    def __getitem__(self, i):
+        return self.charam[i]
+
+    def __setitem__(self, i, m):
+        if isinstance(m, TamilStr):
+            self.charam = self.charam[:i] + m.charam + self.charam[i:]
+        else:
+            self.charam = self.charam[:i] + get_letters_coding(m) + self.charam[i+1:]
+
+    def __str__(self):
+        return ''.join(self.charam)
+
+    def __repr__(self):
+        return repr(self.charam)
+
+    def __iter__(self):
+        for i in self.charam:
+            yield i
+
+    def __eq__(self, other):
+        return self.charam == other.charam
+
+    def meiuyir(self):
+        new_string = []
+        for i in self.charam:
+            new_string.extend(split_uyirmei(i))
+        return TamilStr(new_string)
+
+    def uyirmei(self):
+        return TamilStr(
+            merge_uyirmei(self.charam)
+        )
+
 if __name__ == '__main__':
     print(__package__)
     print(__name__)
     #pprint(ARICHUVADI_MAP)
+
+    print(split_uyirmei('உயர் தனிச் செம் மொழி'))
+    print(merge_uyirmei(list(split_uyirmei('உயர் தனிச் செம் மொழி'))))
+
     saram = 'The Great உயர்தனிச்செம்மொழி தமிழ்!!!'
     print('Original string:\n\t', saram)
     print('Original string as a list:\n\t', list([i for i in saram]))
@@ -251,5 +302,5 @@ if __name__ == '__main__':
     print('TamilStr:\n\t', TamilStr(saram))
     print('TamilStr-repr:\n\t', repr(TamilStr(saram)))
 
-    print(split_uyirmei('உயர் தனிச் செம் மொழி'))
-    print(merge_uyirmei(list(split_uyirmei('உயர் தனிச் செம் மொழி'))))
+    t = TamilStr(saram)
+    print(t.meiuyir())

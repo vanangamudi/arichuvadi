@@ -6,3 +6,6 @@
 ஂ
 ௸
 #+end_quote
+
+* Separate classes for characters and string
+The arichuvadi internal representation must have clear internal representation for consistent API. For example, =split_uyirmei= and =merge_uyirmei= function are confusing. They were written multiple times from scratch for different code experiments in the last few years with conflicting requirements and that resulted in messy API, whether we should take in an d return list or python string in this functions is confusing especially for me.
