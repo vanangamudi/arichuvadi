@@ -178,6 +178,66 @@ class TamilStr:
         return self.charam == other.charam
 
 
+def split_uyirmei(string, join_p=True):
+    """
+    தமிழ் -> த் அ ம் இ ழ்
+    """
+
+    letters = []
+    for i in get_letters_coding(string.strip()):
+        if i in MAP[ UYIRMEI ]:
+            letters.extend(
+                get_letters_coding( MAP[ UYIRMEI ][i] ))
+        else:
+            letters.append(i)
+
+    if join_p:
+        return ''.join(letters)
+    return letters
+
+def split_uyirmei2(string, join_p=True):
+    """
+    தமிழ் -> த ம் இ ழ்
+    """
+    letters = []
+    inletters = get_letters_coding(string.strip())
+
+    letters.append(inletters[0])
+    for i in inletters[1:-1]:
+        if i in MAP[ UYIRMEI ]:
+            letters.extend(
+                get_letters_coding( MAP[ UYIRMEI ][i] ))
+        else:
+            letters.append(i)
+
+    letters.append(inletters[-1])
+
+    if join_p:
+        return ''.join(letters)
+    return letters
+
+
+def merge_uyirmei(instring):
+    if len(instring) < 2:
+        return ''.join(instring)
+
+    string = list(instring[:])
+    i = 0
+    while i < len(string) - 1:
+        couplet = string[i]+string[i+1]
+        #print(couplet, string)
+        if couplet in IMAP[ UYIRMEI ]:
+            # print(''.join(string[:i]), '#',
+            #       ''.join([IMAP[ UYIRMEI ][couplet]]), '#',
+            #       ''.join(string[i+1:]))
+            string = string[:i] + [(IMAP[ UYIRMEI ][couplet])] + string[i+2:]
+
+
+        i += 1
+
+    return ''.join(string)
+
+
 if __name__ == '__main__':
     print(__package__)
     print(__name__)
@@ -188,6 +248,8 @@ if __name__ == '__main__':
     print('get_letters_coding:\n\t', get_letters_coding(saram))
     print('get_letters_glyph:\n\t',get_letters_glyph(saram))
 
-
     print('TamilStr:\n\t', TamilStr(saram))
     print('TamilStr-repr:\n\t', repr(TamilStr(saram)))
+
+    print(split_uyirmei('உயர் தனிச் செம் மொழி'))
+    print(merge_uyirmei(list(split_uyirmei('உயர் தனிச் செம் மொழி'))))
