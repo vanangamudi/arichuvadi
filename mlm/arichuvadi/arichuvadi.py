@@ -156,7 +156,7 @@ class TamilStr:
         return len(self.charam)
 
     def __getitem__(self, i):
-        return TamilStr(self.charam[i])
+        return self.charam[i]
 
     def __setitem__(self, i, m):
         if isinstance(m, TamilStr):
