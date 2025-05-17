@@ -2,8 +2,9 @@ from pprint import pprint, pformat
 from collections import OrderedDict, defaultdict, namedtuple
 
 import os
+import re
 
-from arichuvadi.valam import (
+from .valam import (
     ADAIYALAMITTA_ARI_PATH,
     ARI_PATH,
     ARI_UNI_PATH
@@ -118,7 +119,6 @@ def get_letters_glyph(saram):
 def get_letters_coding(saram):
     return _get_letters(saram, 1)
 
-
 # predicates
 def yezhutha_aa(ezhuthu):
     return ezhuthu in ARICHUVADI_MAP['எழுத்து']
@@ -126,6 +126,24 @@ def yezhutha_aa(ezhuthu):
 def yenna_aa(ezhuthu):
     return ezhuthu in ARICHUVADI_MAP['எண்கள்']
 
+
+def clean_improper_unicode_sequence(saram):
+    pairs = [
+        (r'ெ(.)ா', r'\1ொ'),
+        (r'ே(.)ா', r'\1ோ'),
+        (r'ெ(.)ௗ', r'\1ௌ'),
+        (r'^ெ(.)', r'\1ெ'),
+        (r'^ே(.)', r'\1ே'),
+
+        (r'^்(.)', r'\1்'),
+
+        (r'ா்', r'ர்'),
+    ]
+
+    for mistake, correction in pairs:
+        result = re.sub(mistake, correction, saram)
+
+    return result
 
 class TamilStr:
     def __init__(self, charam):
