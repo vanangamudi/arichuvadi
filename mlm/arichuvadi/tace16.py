@@ -2,6 +2,7 @@ import re
 from .arichuvadi import ARICHUVADI
 from .arichuvadi import get_letters_coding
 
+from pprint import pprint
 
 def generate_tace16_map(start=0xE000):
     mapping = {}
@@ -93,13 +94,13 @@ class TACE16String:
         return self.internal.endswith(internal_sub)
 
     def search(self, pattern):
-        return re.search(pattern, self.internal)
+        return re.search(TACE16String(pattern).internal, self.internal)
 
     def match(self, pattern):
-        return re.match(pattern, self.internal)
+        return re.match(TACE16String(pattern).internal, self.internal)
 
     def findall(self, pattern):
-        return re.findall(pattern, self.internal)
+        return re.findall(TACE16String(pattern).internal, self.internal)
 
 if __name__ == "__main__":
     s = TACE16String("காகி hello")
@@ -109,3 +110,47 @@ if __name__ == "__main__":
     print(s[1:3])           # TACE16String('கி hello')
     print(s.find("கி"))     # Position of "கி"
     print(s.replace("கி", "கூ"))  # Replaces கி → கூ
+
+    words = [
+        "கடி",
+        "கழி",
+        "கலி",
+        "கலை",
+        "கா",
+        "கோடு",
+        "குல்",
+        "சேர்",
+        "சரி",
+        "கை",
+        "கரை",
+        "சாய்",
+        "குல்",
+        "குழை",
+        "குறை",
+        "சிலை",
+        "குறி",
+        "குரு",
+        "சிறை",
+        "குடி",
+        "குடை",
+        "சிதை",
+        "சேர்",
+        "சுலை",
+    ]
+
+    pattern = r'^[சிகு]'
+    re_matches = []
+    tacere_matches = []
+    for word in words:
+        s = TACE16String(word)
+        if re.search(pattern, word):
+            re_matches.append(word)
+        if s.search(pattern):
+            tacere_matches.append(word)
+
+
+    print('re_matches :=')
+    pprint(re_matches)
+
+    print('tacere_matches :=')
+    pprint(tacere_matches)
