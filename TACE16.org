@@ -1,0 +1,34 @@
+* Regexing works
+
+Before running this code, clone this repo and do an editable install
+
+#+begin_src python
+  import re
+  from arichuvadi.tace16 import TACE16String
+
+  words = ["கடி", "கழி", "கலி", "கலை", "கா", "கோடு", "குல்", "சேர்", "சரி", "கை", "கரை", "சாய்", "குல்", "குழை", "குறை", "சிலை", "குறி", "குரு", "சிறை", "குடி", "குடை", "சிதை", "சேர்", "சுலை" ]
+
+  pattern = r'^[சிகு]'
+  re_matches = []
+  tace16_matches = []
+  for word in words:
+      s = TACE16String(word)
+      if re.search(pattern, word):
+          re_matches.append(word)
+      if s.search(pattern):
+          tace16_matches.append(word)
+
+  print('re_matches :=')
+  print(re_matches)
+
+  print('tace16_matches :=')
+  print(tace16_matches)
+#+end_src
+
+#+RESULTS:
+#+begin_src python
+  re_matches :=
+  ['கடி', 'கழி', 'கலி', 'கலை', 'கா', 'கோடு', 'குல்', 'சேர்', 'சரி', 'கை', 'கரை', 'சாய்', 'குல்', 'குழை', 'குறை', 'சிலை', 'குறி', 'குரு', 'சிறை', 'குடி', 'குடை', 'சிதை', 'சேர்', 'சுலை']
+  tace16_matches :=
+  ['குல்', 'குல்', 'குழை', 'குறை', 'சிலை', 'குறி', 'குரு', 'சிறை', 'குடி', 'குடை', 'சிதை']
+#+end_src
